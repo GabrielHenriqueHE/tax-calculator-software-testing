@@ -1,3 +1,5 @@
 my-env/Include
 my-env/Lib
 my-env/Scripts
+**/**/__pycache__
+**/**/.pytest_cache
