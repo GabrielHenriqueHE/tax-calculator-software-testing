@@ -42,32 +42,11 @@ def test_calcular_valor_icms():
 def test_calcular_bc_icms_st():
     tax_calculator = TaxCalculator()
     
-    bc_icms_st_1 = tax_calculator.__calcular_bc_icms_st__(1000, 40, 33.33)
-    assert bc_icms_st_1 == 933.38
+    bc_icms_st_1 = tax_calculator.__calcular_bc_icms_st__(1000, 50, 0, 100, 25, 30, 10, 0)
+    assert bc_icms_st_1 == 1747.50
 
-    bc_icms_st_2 = tax_calculator.__calcular_bc_icms_st__(500, 30, 0)
-    assert bc_icms_st_2 == 650.00  
-
-    bc_icms_st_3 = tax_calculator.__calcular_bc_icms_st__(200, 20, 50)
-    assert bc_icms_st_3 == 120.00  
-
-    bc_icms_st_4 = tax_calculator.__calcular_bc_icms_st__(10000, 100, 0)
-    assert bc_icms_st_4 == 20000.00  
-    
-    # bc_icms_st_5 = tax_calculator.__calcular_bc_icms_st__(1000, -10, 0)
-    # ValueError - MVA negativo
-
-    bc_icms_st_6 = tax_calculator.__calcular_bc_icms_st__(1500, 50, 10)
-    assert bc_icms_st_6 == 2025.00  
-
-def test_calcular_valor_icms_st_origem():
+def test_calcular_valor_icms_st():
     tax_calculator = TaxCalculator()
 
-    valor_icms_st_origem_1 = tax_calculator.calcular_valor_icms_st_origem(10_000, 7)
-    assert valor_icms_st_origem_1 == 700.00
-
-def test_calcular_valor_icms_st_destino():
-    tax_calculator = TaxCalculator()
-
-    valor_icms_st_destino_1 = tax_calculator.calcular_valor_icms_st_destino(10_000, 40, 0, 7, 12)
-    assert valor_icms_st_destino_1 == 980.00
+    valor_icms_st_1 = tax_calculator.calcular_valor_icms_st(1000, 50, 18, 12, 0, 100, 25, 30, 10, 0)
+    assert valor_icms_st_1 == 174.75

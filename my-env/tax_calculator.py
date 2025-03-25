@@ -14,6 +14,24 @@ class TaxCalculator:
         """
             Calcula o valor da base de cálculo do valor de ICMS.
         """
+        
+        if valor_produto <= 0:
+            raise ValueError("Valor inválido para o produto.")
+        
+        if valor_red_bc < 0:
+            raise ValueError("Valor inválido para o percentual de redução de base de cálculo.")
+        
+        if valor_ipi < 0:
+            raise ValueError("Valor inválido para o IPI.")
+        
+        if valor_frete < 0:
+            raise ValueError("Valor inválido para o frete.")
+        
+        if valor_out_desp < 0:
+            raise ValueError("Valor inválido para outras despesas acessórias.")
+        
+        if valor_desconto < 0:
+            raise ValueError("Valor inválido para o desconto.")
    
         bc_icms: float = valor_produto + valor_ipi + valor_frete + valor_out_desp + valor_seguro - valor_desconto
         
@@ -30,7 +48,10 @@ class TaxCalculator:
         valor_red_bc: float,
         aliq_icms: float
     ) -> float:
-        
+        """
+            Calcula o valor do ICMS.
+        """
+
         bc_icms = self.__calcular_bc_icms__(
             valor_produto, 
             valor_ipi, 
@@ -47,7 +68,12 @@ class TaxCalculator:
         self,
         valor_produto: float,
         mva: float,
-        valor_red_bc: float
+        valor_red_bc: float = 0,
+        valor_ipi: float = 0,
+        valor_frete: float = 0,
+        valor_out_desp: float = 0,
+        valor_seguro: float = 0,
+        valor_desconto: float = 0,
     ) -> float:
         
         """
@@ -62,41 +88,45 @@ class TaxCalculator:
         
         if valor_red_bc < 0:
             raise ValueError("Valor inválido para o percentual de redução de base de cálculo.")
+        
+        if valor_ipi < 0:
+            raise ValueError("Valor inválido para o IPI.")
+        
+        if valor_frete < 0:
+            raise ValueError("Valor inválido para o frete.")
+        
+        if valor_out_desp < 0:
+            raise ValueError("Valor inválido para outras despesas acessórias.")
+        
+        if valor_desconto < 0:
+            raise ValueError("Valor inválido para o desconto.")
 
-        bc_icms_st: float = valor_produto * (1 + (mva / 100))
+        bc_icms_st: float = (valor_produto + valor_ipi + valor_frete + valor_out_desp + valor_seguro - valor_desconto) * (1 + (mva / 100))
 
         return round(bc_icms_st, 2) if valor_red_bc == 0 else round(bc_icms_st * (1 - (valor_red_bc / 100)), 2)
-
-    def calcular_valor_icms_st_origem(
-        self,
-        valor_produto: float,
-        aliq_interestadual: float
-    ) -> float:
-        """
-            Calcula o valor de ICMS-ST a ser pago ao estado de origem.
-        """
-
-        if valor_produto <= 0:
-            raise ValueError("Valor inválido para o produto.")
         
-        if aliq_interestadual < 0:
-            raise ValueError("Valor inválido para a alíquota interestadual.")
-
-        return round(valor_produto * (aliq_interestadual / 100), 2)
-    
-    def calcular_valor_icms_st_destino(
+    def calcular_valor_icms_st(
         self,
         valor_produto: float,
         mva: float,
-        valor_red_bc: float,
+        aliq_interna: float,
         aliq_interestadual: float,
-        aliq_interna: float
+        valor_red_bc: float = 0,
+        valor_ipi: float = 0,
+        valor_frete: float = 0,
+        valor_out_desp: float = 0,
+        valor_seguro: float = 0,
+        valor_desconto: float = 0,
     ) -> float:
         
-        bc_icms_st = self.__calcular_bc_icms_st__(valor_produto, mva, valor_red_bc)
-        valor_icms_st_origem = self.calcular_valor_icms_st_origem(valor_produto, aliq_interestadual)
+        """
+            Calcula o valor do ICMS-ST.
+        """
 
-        if aliq_interna < 0:
-            raise ValueError("Valor inválido para a alíquota interna.")
+        valor_icms = self.calcular_valor_icms(valor_produto, valor_ipi, valor_frete, valor_out_desp, valor_seguro, valor_desconto, valor_red_bc, aliq_interestadual)
         
-        return round((bc_icms_st * (aliq_interna / 100)) - valor_icms_st_origem, 2) 
+        bc_icms_st = self.__calcular_bc_icms_st__(valor_produto, mva, valor_red_bc, valor_ipi, valor_frete, valor_out_desp, valor_seguro, valor_desconto)
+
+        valor_icms_st = (bc_icms_st * (aliq_interna / 100)) - valor_icms
+
+        return round(valor_icms_st, 2)
