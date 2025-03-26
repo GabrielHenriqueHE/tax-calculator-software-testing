@@ -1,6 +1,5 @@
 from tax_calculator import TaxCalculator
 from utils import read_float, read_int
-import os
 
 def run():
     while True:
@@ -23,54 +22,60 @@ def run():
 
 
 def calcular_icms_normal():
-    valor_produto: float = read_float("Insira o valor do produto: R$")
-    valor_ipi: float = read_float("Insira o valor do IPI: R$")
-    valor_frete: float = read_float("Insira o valor do frete: R$")
-    valor_out_desp: float = read_float("Insira o valor das outras despesas acessórias: R$")
-    valor_seguro: float = read_float("Insira o valor do seguro: R$")
-    valor_desconto: float = read_float("Insira o valor do desconto: R$")
-    valor_red_bc: float = read_float("Insira o percentual da redução de base de cálculo: ")
-    aliq_icms: float = read_float("Insira o percentual da alíquota de ICMS: ")
+    try:
+        valor_produto: float = read_float("Insira o valor do produto: R$")
+        valor_ipi: float = read_float("Insira o valor do IPI: R$")
+        valor_frete: float = read_float("Insira o valor do frete: R$")
+        valor_out_desp: float = read_float("Insira o valor das outras despesas acessórias: R$")
+        valor_seguro: float = read_float("Insira o valor do seguro: R$")
+        valor_desconto: float = read_float("Insira o valor do desconto: R$")
+        valor_red_bc: float = read_float("Insira o percentual da redução de base de cálculo: ")
+        aliq_icms: float = read_float("Insira o percentual da alíquota de ICMS: ")
 
-    valor_icms = TaxCalculator().calcular_valor_icms(
-        valor_produto,
-        valor_ipi,
-        valor_frete,
-        valor_out_desp,
-        valor_seguro,
-        valor_desconto,
-        valor_red_bc,
-        aliq_icms
-    )
+        valor_icms = TaxCalculator().calcular_valor_icms(
+            valor_produto,
+            valor_ipi,
+            valor_frete,
+            valor_out_desp,
+            valor_seguro,
+            valor_desconto,
+            valor_red_bc,
+            aliq_icms
+        )
 
-    return valor_icms
+        return valor_icms
+    except:
+        return 0
 
 def calcular_icms_st():
-    valor_produto: float = read_float("Insira o valor do produto: R$")
-    valor_mva: float = read_float("Insira o percentual do MVA: ")
-    aliq_interna: float = read_float("Insira o percentual da alíquota interna de ICMS: ")
-    aliq_interestadual: float = read_float("Insira o percentual da alíquota interestadual de ICMS: ")
-    valor_red_bc: float = read_float("Insira o percentual da redução de base de cálculo: ")
-    valor_ipi: float = read_float("Insira o valor do IPI: R$")
-    valor_frete: float = read_float("Insira o valor do frete: R$")
-    valor_out_desp: float = read_float("Insira o valor das outras despesas acessórias: R$")
-    valor_seguro: float = read_float("Insira o valor do seguro: R$")
-    valor_desconto: float = read_float("Insira o valor do desconto: R$")
+    try:
+        valor_produto: float = read_float("Insira o valor do produto: R$")
+        valor_mva: float = read_float("Insira o percentual do MVA: ")
+        aliq_interna: float = read_float("Insira o percentual da alíquota interna de ICMS: ")
+        aliq_interestadual: float = read_float("Insira o percentual da alíquota interestadual de ICMS: ")
+        valor_red_bc: float = read_float("Insira o percentual da redução de base de cálculo: ")
+        valor_ipi: float = read_float("Insira o valor do IPI: R$")
+        valor_frete: float = read_float("Insira o valor do frete: R$")
+        valor_out_desp: float = read_float("Insira o valor das outras despesas acessórias: R$")
+        valor_seguro: float = read_float("Insira o valor do seguro: R$")
+        valor_desconto: float = read_float("Insira o valor do desconto: R$")
 
-    valor_icms_st = TaxCalculator().calcular_valor_icms_st(
-        valor_produto,
-        valor_mva,
-        aliq_interna,
-        aliq_interestadual,
-        valor_red_bc,
-        valor_ipi,
-        valor_frete,
-        valor_out_desp,
-        valor_seguro,
-        valor_desconto
-    )
+        valor_icms_st = TaxCalculator().calcular_valor_icms_st(
+            valor_produto,
+            valor_mva,
+            aliq_interna,
+            aliq_interestadual,
+            valor_red_bc,
+            valor_ipi,
+            valor_frete,
+            valor_out_desp,
+            valor_seguro,
+            valor_desconto
+        )
 
-    return valor_icms_st
+        return valor_icms_st
+    except:
+        return 0
 
 
 def __print_menu__():
