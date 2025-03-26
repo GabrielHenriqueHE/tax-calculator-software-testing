@@ -5,6 +5,13 @@
 
 ## Base de cálculo do ICMS
 
+- Valor do produto
+- Valor do IPI
+- Valor do frete
+- Valor de outras despesas acessórias
+- Valor do seguro
+- Valor do desconto
+
 - **Fórmula:** `Base de cálculo = Valor do produto + Valor do IPI (se incluído) + Valor do frete (se por conta) + Valor outras desp. acessórias + Seguro - Desconto`
 
 ## Valor do ICMS
@@ -28,9 +35,14 @@ Valor do ICMS: 80 * 0.18 = R$14,40
 
 ## Base de cálculo do ICMS-ST
 
+- Valor do IPI
+- Valor do frete
+- Valor de outras despesas acessórias
+- Valor do seguro
+- Valor do desconto
 - **Valor do produto:** refere-se ao preço de venda do produto pelo fabricante ou distribuidor, excluindo o imposto;
 - **MVA (Margem de valor agregado):** é um percentual definido pela legislação para cada tipo de produto. Seu objetivo é estimar o incremento de valor que o produto experimentará até a venda ao consumidor final;
-- **Base de cálculo do ICMS-ST:** resulta da soma do valor do produto com o acréscimo calculado pela aplicação do MVA;
+- **Base de cálculo do ICMS-ST:** resulta da soma do valor do produto e os outros valores, com o acréscimo calculado pela aplicação do MVA;
 - **Fórmula:** `Base de cálculo do ICMS-ST = Valor do produto * (1 + MVA/100)`
 
 ## Exemplo
